@@ -9,11 +9,9 @@ const bot = new TelegramApi(token, { polling: true });
 const chats = {};
 
 const startGame = async (chatId) => {
-    await bot.sendMessage(chatId, 'Я загадал число от 0 до 9, попробуйте отгадать!)');
     const randomNumber = Math.floor(Math.random() * 10);
-    //await bot.sendMessage(chatId, randomNumber);
     chats[chatId] = randomNumber;
-    await bot.sendMessage(chatId, "Отгадывай!", gameOptions);
+    await bot.sendMessage(chatId, 'Я загадал число от 0 до 9, попробуйте отгадать!)', gameOptions);
 }
 
 const start = () => {
@@ -26,7 +24,6 @@ const start = () => {
     bot.on('message', async msg => {
         const text = msg.text;
         const chatId = msg.chat.id;
-        // bot.sendMessage(chatId, `ты написал мне: ${text}`);
         if (text === '/start') {
             await bot.sendSticker(chatId, 'https://cdn.tlgrm.app/stickers/cbe/e09/cbee092b-2911-4290-b015-f8eb4f6c7ec4/192/6.webp');
             return bot.sendMessage(chatId, `Добро пожаловать в тестовый бот!:)`);
